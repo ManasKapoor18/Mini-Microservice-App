@@ -17,13 +17,14 @@ app.get("/posts", (req, res) => {
 app.post("/posts", async (req, res) => {
   const id = randomBytes(4).toString("hex");
   const { title } = req.body;
+
   posts[id] = {
     id,
     title,
   };
 
   await axios.post("http://localhost:4005/events", {
-    type: "postCreated",
+    type: "PostCreated",
     data: {
       id,
       title,
@@ -34,11 +35,11 @@ app.post("/posts", async (req, res) => {
 });
 
 app.post("/events", (req, res) => {
-  console.log("recieved event", req.body.type);
+  console.log("Received Event", req.body.type);
+
   res.send({});
 });
 
-const PORT = 4000;
-app.listen(PORT, () => {
-  console.log(`server running at ${PORT}`);
+app.listen(4000, () => {
+  console.log("Listening on 4000");
 });
